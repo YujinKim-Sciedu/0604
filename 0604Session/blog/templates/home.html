@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0604 SESSION</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- home.html에 적용된 스타일 // 장고에서 CSS파일을 연결하는 방법은 따로 있어요. 그래서 지금은 일단 style 안에 적용할 css 속성값을 적어줄게요. -->
+    <style>
+        div, h1, h4, p, a { font-family: 'Noto Sans KR', sans-serif; text-align: center;}
+        .navbar{position: fixed; left:0; top:0; width: 100%; z-index:999;}
+        .navbar-text{ margin-right: 10px;}
+        h1{ font-weight: 900; margin-top: 130px;}
+        .container{ text-align: left; display: grid; grid-template-columns: 1fr 1fr; margin: 30px auto 90px auto;}
+        .card{ display: inline-block; margin: 30px 0 0 0; width: 30rem;}
+        footer{ position: fixed; left:0; bottom:0; width:100%; font-weight: 100; color: lightgray; margin-top: 10vh;}
+        footer p{ font-size: 14px; font-weight: 500; padding: 15px 0 5px 0;}
+    </style>
+</head>
+
+<body>
+
+<!-- 부트스트랩이 적용된 navbar 입니다. -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">EWHA LIKELION</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'new' %}">글쓰기</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">메뉴2</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      M:N 실습 페이지
+    </span>
+  </div>
+</nav>
+<!-- navbar end -->
+
+
+<h1>영화 소개<span style="font-weight: 600; font-size: 18px;">를 가장한 실습 페이지</span></h1>
+<h4>M:N에 대해 알아보아요.</>
+
+
+<div class ="container">
+
+{%  for blog in blogs.all  %}
+    <div class="card text-center">
+        <div class="card-body">
+            <h4 class="card-title">{{ blog.title }}</h4>
+            <p class="card-text"><small class="text-muted">{{ blog.pub_date }}</small></p>
+            <a href="{% url 'detail' blog.id %}" class="btn btn-outline-dark">보러가기</a>
+            <a href="{% url 'edit' blog.id %}" class="btn btn-outline-dark">수정하기</a>
+            <a href="{% url 'delete' blog.id %}" class="btn btn-outline-dark">삭제하기</a>
+        </div>
+    </div>
+{% endfor %}
+
+</div>
+
+<!-- footer -->
+<footer class="navbar-expand-lg navbar-dark bg-dark">
+    <p>2020.06.04 &nbsp;&nbsp;&nbsp; 멋쟁이사자처럼 at 이화여대</p>
+</footer>
+
+</body>
+</html>
+
+
+
+
