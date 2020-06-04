@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-from blog.models import Blog, Hashtag
+from blog.models import Blog
 
 def home(request):
     blogs = Blog.objects
@@ -12,8 +12,7 @@ def home(request):
 
 def detail(request, blog_id):
     blog_detail = get_object_or_404(Blog, pk= blog_id)
-    hashtags = blog_detail.hashtag.all()
-    return render(request, 'detail.html', {'blog': blog_detail, 'hashtags':hashtags})
+    return render(request, 'detail.html', {'blog': blog_detail})
 
 def new(request):
     return render(request, 'new.html')
@@ -24,12 +23,6 @@ def create(request):
     blog.body = request.GET['body']
     blog.pub_date = timezone.datetime.now()
     blog.save()
-
-    hashtags=request.GET['hashtags']
-    hashtag = hashtags.split(",")
-    for tag in hashtag:
-        ht = Hashtag.objects.get_or_create(name = tag)
-        blog.hashtag.add(ht[0])
 
     return redirect('/blog/' + str(blog.id))
 
